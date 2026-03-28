@@ -1,0 +1,206 @@
+!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Clean | كار كلين</title>
+    <style>
+        /* التنسيق العام والخلفية المتغيرة */
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            animation: bgChange 15s infinite alternate;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        @keyframes bgChange {
+            0% { background-color: #87CEEB; }
+            100% { background-color: #e0f4ff; }
+        }
+
+        /* الخطوط المتحركة (أزرق وأحمر) من الزاوية للزاوية */
+        .bg-lines {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: 
+                linear-gradient(45deg, transparent 48%, rgba(255, 0, 0, 0.2) 50%, transparent 52%),
+                linear-gradient(45deg, transparent 43%, rgba(0, 0, 255, 0.2) 45%, transparent 47%);
+            background-size: 200% 200%;
+            animation: moveLines 12s linear infinite;
+        }
+
+        @keyframes moveLines {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
+        }
+
+        .content-wrapper {
+            text-align: center;
+            padding: 20px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .main-title { font-size: 2.2rem; color: #1a1a1a; margin-top: 20px; }
+        .sub-title { font-size: 1.5rem; color: #444; margin-bottom: 20px; }
+
+        /* فيديو السيارة */
+        .video-container {
+            width: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            margin-bottom: 25px;
+        }
+        iframe { width: 100%; aspect-ratio: 16/9; border: none; display: block; }
+
+        /* الأزرار */
+        .btn {
+            padding: 15px 25px;
+            margin: 10px;
+            border-radius: 35px;
+            border: none;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: 0.3s;
+        }
+        .btn-wa { background: #25D366; color: white; }
+        .btn-info { background: #34495e; color: white; }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+
+        /* نموذج البيانات */
+        .form-card {
+            display: none;
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            margin: 20px auto;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+        .input-group { display: flex; align-items: center; margin-bottom: 15px; }
+        .input-group label { width: 80px; text-align: right; font-weight: bold; }
+        .input-group input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            text-align: right;
+            outline: none;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* المميزات الطافية */
+        .features { display: flex; justify-content: center; gap: 15px; margin-top: 30px; }
+        .feature-item {
+            background: rgba(255,255,255,0.6);
+            padding: 10px 15px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            animation: float 3s infinite ease-in-out;
+        }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    </style>
+</head>
+<body>
+
+    <div class="bg-lines"></div>
+
+    <div class="content-wrapper">
+        <h1 class="main-title">مرحباً بكم في كار كلين</h1>
+        <h2 class="sub-title">Welcome to Car Clean</h2>
+
+        <div class="video-container">
+            <iframe src="https://player.cloudinary.com/embed/?cloud_name=dxidewpue&public_id=Savetik_1774691010_yvvytp" allowfullscreen></iframe>
+        </div>
+
+        <div class="action-buttons">
+            <a href="https://wa.me/966553512386?text=أرغب%20في%20حجز%20موعد" class="btn btn-wa">📱 احجز موعدك الآن</a>
+            <button onclick="toggleForm()" class="btn btn-info">📋 تواصل معنا</button>
+        </div>
+
+        <div id="contactForm" class="form-card">
+            <div id="formContent">
+                <h3>📝 سجل بياناتك</h3>
+                <form id="carCleanForm" action="https://formspree.io/f/mbdpdqjg" method="POST">
+                    <div class="input-group">
+                        <label>الاسم:</label>
+                        <input type="text" name="name" required placeholder="اسمك الكريم">
+                    </div>
+                    <div class="input-group">
+                        <label>الجوال:</label>
+                        <input type="tel" name="phone" required placeholder="05xxxxxxxx">
+                    </div>
+                    <div class="input-group">
+                        <label>الموقع:</label>
+                        <input type="text" name="location" required placeholder="الحي / الموقع">
+                    </div>
+                    <button type="submit" class="submit-btn">إرسال الطلب ✨</button>
+                </form>
+            </div>
+
+            <div id="successMessage" style="display: none; text-align: center; padding: 20px;">
+                <h3 style="color: #27ae60;">✅ تم إرسال طلبك بنجاح</h3>
+                <p>شكراً لك، سيتواصل معك فريق كار كلين قريباً.</p>
+                <button onclick="toggleForm()" class="btn-info" style="padding: 10px 20px; border-radius: 10px; border:none; cursor:pointer;">إغلاق</button>
+            </div>
+        </div>
+
+        <div class="features">
+            <div class="feature-item">✨ لمعان فائق</div>
+            <div class="feature-item">⏱️ سرعة إنجاز</div>
+            <div class="feature-item">🧼 جودة عالمية</div>
+        </div>
+    </div>
+
+    <script>
+        // وظيفة إظهار/إخفاء النموذج
+        function toggleForm() {
+            var f = document.getElementById("contactForm");
+            if (f.style.display === "none" || f.style.display === "") {
+                f.style.display = "block";
+                f.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                f.style.display = "none";
+            }
+        }
+
+        // إرسال البيانات وإظهار رسالة النجاح بدون تحديث الصفحة
+        const form = document.getElementById("carCleanForm");
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const data = new FormData(e.target);
+            const response = await fetch(e.target.action, {
+                method: 'POST',
+                body: data,
+                headers: { 'Accept': 'application/json' }
+            });
+            if (response.ok) {
+                document.getElementById("formContent").style.display = "none";
+                document.getElementById("successMessage").style.display = "block";
+                form.reset();
+            } else {
+                alert("حدث خطأ، يرجى المحاولة مرة أخرى.");
+            }
+        });
+    </script>
+
+</body>
+</html>
